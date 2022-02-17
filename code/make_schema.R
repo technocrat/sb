@@ -1,9 +1,12 @@
 # make_schema.R
 # Convert question column names and types to SQL names and types
-# revision 0: starting with character comments only
+# revision 2: starting with character comments only, awaiting revision
 # author: Richard Careaga
-# Date: 2022-02-11
+# Date: 2022-02-16
 
+# functions
+source(here::here("code/func.R"))
+# TODO conform to fdict.R
 # install("readr")
 # install("here")
 # open RStudio and
@@ -189,3 +192,22 @@ dim(char_var)[2]
 # data and don't let your clumsy brain do anything
 # with it unreliably that the computer can be
 # trusted to do perfectly if you ask nicely"
+
+#===============================================================================
+# NUMERIC AND LOGICAL VARIABLES
+#===============================================================================
+
+# at least one will need to be logical, most of them
+# look like they should be integer, rather than
+# double but we'll fix that later
+# some columns where doubles appear in summary()
+# appear to have NAs (should missing mean no kids
+# or should it mean no information?)
+numb_var <- intake[,which(var_types == "double")]
+numb_var$dem_no_kids
+
+
+bool_var <- intake[,which(var_types == "logical")]
+t(str(bool_var))
+
+# are the _intro columns all empty?

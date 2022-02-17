@@ -1,0 +1,16 @@
+CREATE TABLE codebook(
+id INT AUTO_INCREMENT PRIMARY KEY,
+variable TEXT,
+label TEXT,
+question TEXT,
+instrument TEXT,
+subscale TEXT,
+vartype TEXT,
+sum_name TEXT,
+subscale_r TEXT,
+rev_scoring TEXT,
+scoring TEXT,
+cutoff TEXT,
+scale TEXT,
+range_var TEXT,
+levels TEXT);

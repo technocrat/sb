@@ -1,4 +1,5 @@
 # create_groups.R
+# Version 1.0
 # create separate data frame for each grouping of variables
 # motivation: allow easier examination of each group while
 # retaining the ability to cross reference to other groups
@@ -22,7 +23,7 @@ the_vars <- colnames(intake)
 the_index <- data.frame(index = 1:length(the_vars), var = the_vars)
 # divide by prefix
 # this could be done programmatically and should if it's anticipated
-# to be a recurring task, but it's managable simply to eyeball the
+# to be a recurring task, but it's manageable simply to eyeball the
 # index positions (corresponding to columns of intake)
 
 # select only variables beginning dem_, 

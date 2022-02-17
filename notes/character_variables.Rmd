@@ -1,0 +1,138 @@
+---
+title: "Character variables"
+author: "Richard Careaga"
+date: "2022-02-13"
+output: pdf_document
+---
+
+<style type="text/css">
+body{
+font-size: 18pt;
+}
+</style>
+
+```{r setup,echo=FALSE,include=FALSE}
+knitr::opts_chunk$set
+# get_char.R
+# subset the columns that are intended to be typeof character
+# author: Richard Careaga
+# version: 1
+# Date: 2022-02-12
+
+intake <- readr::read_csv(here::here("data/2_DATA_Sample.csv"))
+var_types <- sapply(intake,typeof)
+char_var <- intake[,which(var_types == "character")]
+char_tab <- readr::read_csv(here::here("doc/char_vars.csv"))
+non_unique <- nrow(char_tab) - length(unique(char_tab$var))
+the_factors <- colnames(intake)[which(char_tab$factor == TRUE)]
+inventory <- colnames(intake) # all variable names
+have <- colnames(char_var)    # variables selected as character type
+want <- char_tab$var          # variables expected as character type
+setdiff(want,inventory)       # variables expected missing from intake
+intake$dem_covid1             # missing
+# confirmed by inspection of 2_DATA_Sample.xlsx
+intake$social_matt_intro
+# confirmed by inspection of 2_DATA_Sample.xlsx
+# coded as social_matt_into
+# TODO: correct name in SQL revisions table
+
+# any unwanted character variables?
+setdiff(have,want)
+
+lack <- setdiff(want,have)
+
+dem <- grep("dem",lack)
+# all columns in intake that begin with dem_
+dems <- grep("character",sapply(colnames(intake)[lack],typeof),value = TRUE)
+
+grep("character",sapply(dem,typeof),value = TRUE)
+
+inventory <- colnames(intake)
+char_pat <- "child|complete|dem|emot|pain|sa|self|si|social|start|suicide|survey"
+pick_list <- grep(char_pat,colnames(intake),value = TRUE)
+
+```
+
+## Purpose of this note
+
+Study data has been collated from responses into an Excel spreadsheet.^[**SB** provided **RC** with a small sample, consisting of seven rows, 2_DATA_Sample.xlsx, created 10/10/2021, 21:10:32 and modified 02/08/2022, 10:20:16] The data are to be imported into an `R` data frame, processed, and exported to an SQL database. The appropriate type of each column must be mapped from `R` syntax to `SQL` syntax.
+
+The plan is to use a first SQL data base as an archival record and a second SQL data base as a static data store for analysis.
+
+In a Word document^[Character Variables.docx, undated], **SB** identified `r nrow(char_tab)` variables that should have been imported to `R` as type character, but found only 30.  There are 318 variables in total from the spreadsheet. The Word document also identified variables that should be treated as factors.
+
+## Resolution
+
+The variables identified by SB are
+
+```{r echo = FALSE} 
+pander::pander(char_tab, justify = "left")
+```
+
+There are `r non_unique` non-unique entries, reducing the number of character variables desired to `r nrow(char_tab) - non_unique`.
+
+Of these, `r sum(char_tab$factor)` are `factor` variables, which are a type of numeric/character hybrid. They are recorded as numeric values that are labelled by characters. As they are not recorded in the spreadsheet as character values, but as numeric, these values will need to be matched with the corresponding character labels (or *levels*) separately.
+
+```{r, echo = FALSE}
+pander::pander(data.frame(Factors = the_factors), justify = "left")
+```
+
+Omitting the remaining number of character variables that are factors reduces the number of variables to be accounted for to `r nrow(char_tab) - non_unique - sum(char_tab$factor)`.
+
+```{r, echo = FALSE}
+pander::pander(data.frame(Missing = setdiff(want,inventory)), justify = "left")
+```
+
+Differences in capitalization account for `r max(grep("D",setdiff(want,inventory)))` of the missing variables and `r length(grep("D",setdiff(want,inventory), invert = TRUE))` are not present in the data. One of these `r max(grep("D",setdiff(want,inventory), invert = TRUE, value = TRUE))` is mispelt `r inventory[309]`, and the other, `r min(grep("D",setdiff(want,inventory), invert = TRUE, value = TRUE))` is not among the variables with similar names in the data.
+
+```{r, echo = FALSE}
+pander::pander(data.frame(Covid = grep("covid",inventory,value = TRUE)), justify = "left")
+```
+
+The variable name `r inventory[309]` will be corrected in the process of creating the working SQL table. **SB** *should check* to see if `r min(grep("D",setdiff(want,inventory), invert = TRUE, value = TRUE))` was omitted from the data. *Otherwise*, **SB** and **RC** should compare versions of the data. If it has, **SB** should prepare a supplementary file with the columns `r inventory[1]` and `r min(grep("D",setdiff(want,inventory), invert = TRUE, value = TRUE))` from the source data. Accounting for the `r length(grep("D",setdiff(want,inventory), invert = TRUE))` missing variables and capitalized variables `r nrow(char_tab) - non_unique - sum(char_tab$factor) - length(grep("D",setdiff(want,inventory), invert = TRUE)) - length(grep("D",setdiff(want,inventory)))` variable remain to be reconciled.
+
+First, however, the capitalized variables should be lower cased and checked against the variable names and types in the data. After doing so, only the two missing variables remain.
+
+```{r, echo = FALSE}
+lc_want <- tolower(want)
+pander::pander(data.frame(Missing = setdiff(lc_want,inventory)),justify = "left")
+```
+
+The differences between the character variables in the data and those in the running list are
+
+```{r, echo=FALSE}
+pander::pander(data.frame(Missing = setdiff(have,lc_want)),justify = "left")
+pander::pander(data.frame(Type = sapply(setdiff(have,lc_want),typeof)),justify = "left")
+```
+
+These have been properly imported as type character. When those `r length(setdiff(have,lc_want))` variables are added to the `r length(have)` variables imported, the result, `r length(setdiff(have,lc_want)) + length(have)`, agrees with **SB**'s result of character values found.
+
+## Recap
+
+```{r,echo=FALSE}
+start <- nrow(char_tab)
+factrs <- char_tab$factor |> sum()
+caps <- max(grep("D",setdiff(want,inventory)))
+mispelt <- length(inventory[309])
+missed <- length(min(grep("D",setdiff(want,inventory))))
+finish <- start - non_unique - factrs - caps - mispelt - missed
+```
+
+* **SB** specified character variables: `r start`
+* Less duplicated entries: `r non_unique`
+* Less factor variables: `factrs` 
+* Less capitalized variables: `r caps`
+* Less mispelt in data: `r mispelt`
+* Less missing in data: `r missed`
+* Remaining: `r finish`
+
+In addition, **RC** sees only `r length(have)` character variables.
+
+```{r, echo=FALSE}
+pander::pander(data.frame(Found = have), justify = "left")
+```
+
+To discuss: What additional character variables does **SB** expect that are still missing?
+
+
+
