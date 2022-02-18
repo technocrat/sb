@@ -1,6 +1,6 @@
 # installs.R
 # libraries to be installed
-# Version 1.0
+# Version 1.1 # add tidytext and stringr
 # author: Richard Careaga
 # Date: 2022-02-16
 
@@ -10,8 +10,8 @@ add_library <- function(x) install.packages(x)
 
 initial_libraries <- c("DBI","dplyr","ggplot2","here","lubridate","patchwork","readr","readtext","readxl","RMySQL","vcd")
 
-add_library(initial_libraries
-            )
+add_library(initial_libraries)
+
 # DBI: data base connectivity
 # dplyr: tidyverse syntax for data bases
 # ggplot2: tidyverse plotting
@@ -24,3 +24,12 @@ add_library(initial_libraries
 # RMySQL: data base connectivity
 # vcd: categorical analysis
 # vcdExtra: additional functions
+
+# second batch
+
+second_batch <- c("docxtractr","stringr","tidytext")
+
+add_library(initial_batch)
+# docxtractr: extract tables from docx format
+# stringr: find and replace using search patterns
+# tidytext: extract free text from docx format
