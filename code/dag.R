@@ -1,4 +1,12 @@
-library(bnlearn)
+# dag.R
+# demonstration of directed a cyclic graphs, a tool for 
+# causal inference by identifying variables that may
+# require controlling for
+# Version 1.0 Ready
+# for later in the process
+# author: Richard Careaga
+# Date: 2022-02-21
+require(bnlearn)
 # https://rpubs.com/osazuwa/causaldag1
 dag <- empty.graph(nodes = c("A","S","E","O","R","T"))
 arc.set <- matrix(c("A", "E",

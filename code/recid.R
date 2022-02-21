@@ -1,5 +1,5 @@
 # recid.R
-# Version 1.0.1 add 2003 baby names 
+# Version 1.0.1 add 2003 baby names NOT READY
 # create data frame for key to variable dem_urn
 # motivation: dem_urn allows data to be traced to
 # a specific survey response but will generally 

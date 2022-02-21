@@ -1,4 +1,5 @@
 # assignment.R
+# Version 0.5 NOT READY
 # Assign variables to appropriate type 
 # Version 1.0.1 use SQL output of fdict.R
 # author: Richard Careaga
@@ -18,36 +19,25 @@ source(here::here("code/func.R"))
 # codebook data table created by fdict.R
 
 con <- r_open_sql("polytrope")
-codebook <- dbReadTable(con, "codebook")
+cb <- dbReadTable(con, "codebook")
 
-# read in the entire file
+# read in the entire file raw data excel sheet
 
 intake <- get_intake()
 
-# examine column names
+# create a variable for classification as a factor, initially all FALSE
 
-the_vars <- colnames(intake)
-the_vars
+cb$factor <- FALSE
 
-cb <- data.frame(text = strsplit(readtext(here::here("doc/Character Variables.docx"))$text,"\n"))
-colnames(cb) <- "variable"
+cb$factor[which(str_detect(cb$vartype,"Factor"))] <- TRUE
 
-# close up white space
+# identify  and remove "intro/obsolete" variables from codebook
+# misspelling of obsolete is in the original
 
-cb$variable <- str_trim(cb$variable,"both")
-cb$factor <- ifelse(str_detect(cb$variable,"-.*^"),TRUE,FALSE)
-str_remove("-.*$",cb$variable)
-
-# sui_flag
-
-sui <- readRDS(here("obj/sui_flag.Rds"))
-get_type(sui)
-
-# inspect
-
-head(sui)
-# TODO ask SB
-# to be converted to factor ?
+cb <- cb[-which(str_detect(cb$vartype,"Obselete")),]
 
 
+# find variables to be made into numerical type
+
+numericals <- cb[which(cb$vartype == "Numerical"),]
 

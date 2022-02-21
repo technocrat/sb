@@ -1,6 +1,6 @@
 # installs.R
 # libraries to be installed
-# Version 1.1 # add tidytext and stringr
+# Version 1.1 # add tidytext and stringr READY
 # author: Richard Careaga
 # Date: 2022-02-16
 

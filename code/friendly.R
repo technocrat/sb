@@ -1,3 +1,9 @@
+# friendly.R
+# exercises from Discrete Data Analyis with R 
+# Version 1.0: READY(ish)
+# author: Richard Careaga
+# Date: 2022-02-21
+# 
 library(vcd)
 library(vcdExtra)
 

@@ -1,5 +1,5 @@
 # fdict.R
-# version 1.01 touchups
+# version 1.01 touchups READY after mysql installed
 # prepare field dictionary (field is synonymous with variable, which
 # are columns; the row analog is record)
 # SQL script to create the table schema in SQL, 
@@ -55,7 +55,6 @@ nchar(fdict[1:14]) |> sum()
 var_lengths <- vector()
 for(i in seq_along(fdict)) var_lengths[i] = find_max_char(fdict,i)
 
-
 max(var_lengths)
 # which will fit within the 65535 cap
 max(var_lengths) * dim(fdict)[2] < 2^16 - 1
@@ -66,13 +65,16 @@ declaration <- rep("TEXT,",dim(fdict)[2])
 tab_body <- data.frame(variable = colnames(fdict),vartype = declaration)
 
 # remove comma from last row and replace with );
+
 tab_body[dim(tab_body)[1],2] <- gsub(",",");",tab_body[dim(tab_body)[1],2])
 
 # combine the two columns
+
 spec <- paste(tab_body$variable,tab_body$vartype)
 forepart <- "CREATE TABLE codebook(\nid INT AUTO_INCREMENT PRIMARY KEY,"
 
 # write the script to create the data table
+
 cat(c(forepart,spec),file=here::here("code/create_fdict.sql"),sep="\n")
 
 # See comment 3 below for how to use the file; this step is needed
@@ -94,6 +96,7 @@ close_sql()
 
 # show table of selected variable values in first 5 rows
 # and selected questions in second, third and fourth columns
+
 cb[1:5,2:4]
 
 # Comment 1

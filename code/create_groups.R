@@ -1,5 +1,5 @@
 # create_groups.R
-# Version 1.0
+# Version 1.0 MAY NOT BE NECESSARY
 # create separate data frame for each grouping of variables
 # motivation: allow easier examination of each group while
 # retaining the ability to cross reference to other groups
@@ -12,10 +12,9 @@
 
 # libraries
 
-library(stringr)
-
+source(here::here("code/libr.R"))
 # read in the entire file
-intake <- readr::read_csv(here::here("data/2_DATA_Sample.csv"))
+intake <- read_xlsx(here::here("data/2_DATA_Sample.xlsx"))
 
 # examine column names
 the_vars <- colnames(intake)

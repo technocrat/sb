@@ -1,6 +1,7 @@
 # make_schema.R
 # Convert question column names and types to SQL names and types
-# revision 2: starting with character comments only, awaiting revision
+# Version 1: not ready
+# starting with character comments only, awaiting revision
 # author: Richard Careaga
 # Date: 2022-02-16
 
@@ -117,7 +118,7 @@ mean(sapply(char_var,nchar),na.rm = TRUE) * dim(char_var)[2] < c(2^16-1)
 magic <- 2^16-1
 magic
 # magic is evaluated before any pesky / but now we've got another
-# object in namespace to worry about, besides the perenial problem
+# object in namespace to worry about, besides the perennial problem
 # of coming up with a name, so these convenience variables can become
 # inconvenient
 # where'd the 0.96 come from?

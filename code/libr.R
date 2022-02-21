@@ -1,6 +1,6 @@
 # libr.R
 # libraries to be loaded by default in scripts
-# Version 1.0
+# Version 1.0: Ready
 # author: Richard Careaga
 # Date: 2022-02-17
 
@@ -10,3 +10,4 @@ library(readr)
 library(readxl)
 library(RMariaDB)
 library(RMySQL)
+library(stringr)
