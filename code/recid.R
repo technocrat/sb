@@ -1,5 +1,5 @@
 # recid.R
-# Version 1.0.1 add 2003 baby names NOT READY
+# Version 1.0.1 add 2003 baby names READY
 # create data frame for key to variable dem_urn
 # motivation: dem_urn allows data to be traced to
 # a specific survey response but will generally 
@@ -10,15 +10,15 @@
 # variable both permits that and can also be
 # used to retrieve the dem_url if needed
 # author: Richard Careaga
-# Date: 2022-02-08
+# Date: 2022-02-27
 
-# libraries
+# libraries and functions
 
-source(here("code/libr.R"))
+source("prepare.R")
 
 # data
 
-intake <- read_csv(here("data/2_DATA_Sample.csv"))
+intake <- get_intake()
 
 # main
 
@@ -35,6 +35,10 @@ recid <- recid[,c(2,1)]
 # inspect
 recid
 
+# save to rds
+
+saveRDS(recid,file = here("obj/recid.Rds"))
+
 # make a list of unique boys first names of boys born in 2003
 # see comment 3 below
 
@@ -45,12 +49,10 @@ boynames <- sample(boynames,nrow(intake), replace = FALSE)
 
 nicks <- data.frame(recid = recid[1], nicks = boynames)
 
-# save three objects
+saveRDS(nicks, file = here("obj/nicks.obj"))
+
 # See comment 2 below
 
-saveRDS(recid,file = here("obj/dem_urn_key.Rds"))
-saveRDS(recid$recid, file = here("obj/recid.Rds"))
-saveRDS(nicks, file = here("obj/nicks.Rds"))
 
 # Comment 1 
 # reverse order of columns
@@ -61,13 +63,6 @@ saveRDS(nicks, file = here("obj/nicks.Rds"))
 # it is often much simpler than using tidy functions
 
 # Comment2
-# motivation: the .Rds format preserves the data frame
-# and helps prevent inadvertent changes
-# one will be the full recid object, called
-# dem_urn_key.Rds
-# and the other will be the record identifiers to be
-# introduced as the first column of data frames
-# derived from the original data
 
 # the here() function allows referring to files relative to 
 # the working directory for the project, rather than the

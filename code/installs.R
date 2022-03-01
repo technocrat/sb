@@ -1,19 +1,19 @@
 # installs.R
 # libraries to be installed
-# Version 1.1 # add tidytext and stringr READY
+# Version 1.3 # add tidytext and stringr and remove SQL-related 
+# RMariaDB READY
 # author: Richard Careaga
-# Date: 2022-02-16
+# Date: 2022-02-22
 
 # initial libraries
 
 add_library <- function(x) install.packages(x)
 
-initial_libraries <- c("DBI","dplyr","ggplot2","here","lubridate","patchwork","readr","readtext","readxl","RMySQL","vcd")
+initial_libraries <- c("dplyr","ggplot2","here","lubridate","patchwork","readr","readtext","readxl","vcd")
 
 add_library(initial_libraries)
 
-# DBI: data base connectivity
-# dplyr: tidyverse syntax for data bases
+# dplyr: tidyverse syntax for data frames
 # ggplot2: tidyverse plotting
 # here: allows referring to an object relative to current working directory
 # lubridate: working with dates
@@ -21,7 +21,6 @@ add_library(initial_libraries)
 # readr: import data
 # readtext: reading Word document text
 # readxl: reading Excel
-# RMySQL: data base connectivity
 # vcd: categorical analysis
 # vcdExtra: additional functions
 

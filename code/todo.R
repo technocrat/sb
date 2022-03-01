@@ -6,10 +6,3 @@
 
 require(todor)
 
-# fdict
-# TODO: REVIEW what do do about prefix terms
-# can't simplify variable names by stripping dem_ etc.
-# prefix_pattern <- "^[a-z]+_"
-# unique(fdict$variable) |> length()
-# length(gsub(prefix_pattern,"",fdict$variable) |> unique())
-
