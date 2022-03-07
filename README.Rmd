@@ -1,0 +1,40 @@
+---
+title: "Factor Assignment Practice"
+author: "Richard Careaga"
+date: '2022-03-06'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style type="text/css">
+body{
+font-size: 18pt;
+}
+</style>
+
+## Goal
+
+Reproduce RC's work on the 9-row sample file in preparation for performing the same process on the actual data.
+
+## Steps
+
+1. Click into the `code` directory in the Files pane
+2. Double click on the `install.R` file
+3. Run it by selecting all in the Source pane and CTRL ENTER
+4. Close when packages have installed
+5. Double click on the `factor_practice.R` in the Files pane
+6. Run it line-by-line by positioning at the top and using CTRL ENTER successively
+(it will advance to the next line of code). Read the comments and check the
+results
+
+## TODO
+
+1. RC to identify the variables to be removed from the list of those to be converted to factors (such as "on a scale of 1 to 10") and to recommend whether to treat those as numeric or categorical.
+2. Others?
+
+# Next
+
+When SB successful, RC to outline steps to apply the same treatment to the actual data.
