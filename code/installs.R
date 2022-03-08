@@ -29,7 +29,7 @@ add_library(initial_libraries)
 second_batch <- c("docxtractr","stringr","tidytext",
                 "wrapr")
 
-add_library(initial_batch)
+add_library(second_batch)
 # docxtractr: extract tables from docx format
 # stringr: find and replace using search patterns
 # tidytext: extract free text from docx format
