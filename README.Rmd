@@ -23,10 +23,10 @@ Reproduce RC's work on the 9-row sample file in preparation for performing the s
 
 1. Click into the `code` directory in the Files pane
 2. Double click on the `install.R` file
-3. Run it by selecting all in the Source pane and CTRL ENTER
+3. Run it by selecting all in the Source pane and CMD ENTER
 4. Close when packages have installed
 5. Double click on the `factor_practice.R` in the Files pane
-6. Run it line-by-line by positioning at the top and using CTRL ENTER successively
+6. Run it line-by-line by positioning at the top and using CMD ENTER successively
 (it will advance to the next line of code). Read the comments and check the
 results
 

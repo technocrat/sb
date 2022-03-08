@@ -5,7 +5,7 @@
 # the script does not save the results
 # it's for practice only
 # author: Richard Careaga
-# Date: 2022-03-05
+# Date: 2022-03-08
 
 # libraries, functions
 
@@ -137,9 +137,9 @@ intake$si <- factorise(the_yes_no,2)
 
 intake[,the_yes_no[c(2,3,5)]]
 
-intake$dem_kids <- factorize(the_yes_no,2)
-intake$pain_talk <- factorize(the_yes_no,2)
-intake$sa <- factorize(the_yes_no,2)
+intake$dem_kids <- factorise(the_yes_no,2)
+intake$pain_talk <- factorise(the_yes_no,2)
+intake$sa <- factorise(the_yes_no,2)
 
 # check that the_yes_no variables are now all factors
 
@@ -147,7 +147,7 @@ str(intake[the_yes_no])
 
 # reload function library to use a revised factorise() function
 
-source(here("data/func.R"))
+source(here("code/func.R"))
 
 # remove "intro/obsolete" from codebook
 
